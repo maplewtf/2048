@@ -70,7 +70,8 @@ public class Function {
 	/*
 	 * 移动
 	 */
-	public void moveLeft() {//先把数都推到左面，再计算
+	public boolean moveLeft() {//先把数都推到左面，再计算
+		boolean flag = false;//判断能否移动
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
 				if(data[i][j] == 0) {
@@ -78,6 +79,7 @@ public class Function {
 						if(data[i][k] != 0) {
 							data[i][j] = data[i][k];
 							data[i][k] = 0;
+							flag = true;
 							break;
 						}
 					}
@@ -86,18 +88,20 @@ public class Function {
 		}
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 3; j++) {
-				if(data[i][j] == data[i][j+1]) {
+				if(data[i][j]!= 0 && data[i][j] == data[i][j+1]) {
 					data[i][j] += data[i][j+1];
+					flag = true;
 					for(int k = j + 1; k < 3; k++) {
 						data[i][k] = data[i][k+1];
 					}
 				}
 			}
 		}
-		
+		return flag;
 	}
 	
-	public void moveRight() { //向右移动
+	public boolean moveRight() { //向右移动
+		boolean flag = false;//判断能否移动
 		for(int i = 0; i < 4; i++) {
 			for(int j = 3; j >= 0; j--) {
 				if(data[i][j] == 0) {
@@ -105,6 +109,7 @@ public class Function {
 						if(data[i][k] != 0) {
 							data[i][j] = data[i][k];
 							data[i][k] = 0;
+							flag = true;
 							break;
 						}
 					}
@@ -114,17 +119,20 @@ public class Function {
 		
 		for(int i = 0; i < 4; i++) {
 			for(int j = 3; j > 0; j--) {
-				if(data[i][j] == data[i][j-1]) {
+				if(data[i][j]!= 0 && data[i][j] == data[i][j-1]) {
 					data[i][j] += data[i][j-1];
+					flag = true;
 					for(int k = j-1; k > 0; k--) {
 						data[i][k] = data[i][k - 1];
 					}
 				}
 			}
 		}
+		return flag;
 	}
 	
-	public void moveUp() { //向上移动
+	public boolean moveUp() { //向上移动
+		boolean flag = false;
 		for(int j = 0; j < 4; j++) {
 			for(int i = 0; i < 4; i++) {
 				if(data[i][j] == 0) {
@@ -132,6 +140,7 @@ public class Function {
 						if(data[k][j] != 0) {
 							data[i][j] = data[k][j];
 							data[k][j] = 0;
+							flag = true;
 							break;
 						}
 					}
@@ -140,17 +149,20 @@ public class Function {
 		}
 		for(int j = 0; j < 4; j++) {
 			for(int i = 0; i < 3; i++) {
-				if(data[i][j] == data[i+1][j]){
+				if(data[i][j]!= 0 && data[i][j] == data[i+1][j]){
 					data[i][j] += data[i+1][j];
+					flag = true;
 					for(int k = i+1; k < 3; k++) {
 						data[k][j] = data[k+1][j];
 					}
 				}
 			}
 		}
+		return flag;
 	}
 	
-	public void moveDown() {  //向下移动
+	public boolean moveDown() {  //向下移动
+		boolean flag = false;
 		for(int j = 0; j < 4; j++) {
 			for(int i = 3; i >= 0; i--) {
 				if(data[i][j] == 0) {
@@ -158,6 +170,7 @@ public class Function {
 						if(data[k][j] != 0) {
 							data[i][j] = data[k][j];
 							data[k][j] = 0;
+							flag = true;
 							break;
 						}
 					}
@@ -166,14 +179,16 @@ public class Function {
 		}
 		for(int j = 0; j < 4; j++) {
 			for(int i = 3; i > 0; i--) {
-				if(data[i][j] == data[i-1][j]) {
+				if(data[i][j]!= 0 && data[i][j] == data[i-1][j]) {
 					data[i][j] += data[i-1][j];
+					flag = true;
 					for(int k = i-1; k > 0; k--) {
 						data[k][j] = data[k-1][j];
 					}
 				}
 			}
 		}
+		return flag;
 	}
 	
 	/*

@@ -109,7 +109,7 @@ public class GameFrame{
 	}
 	
 	public void moveLeft() {
-		function.moveLeft();
+		if(function.moveLeft()==false) return ;
 		if(function.rand()==false) tips.setText("                          GAME¡¡OVER £¡");
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
@@ -122,7 +122,7 @@ public class GameFrame{
 		
 	}
 	public void moveRight() {
-		function.moveRight();
+		if(function.moveRight()==false) return;
 		if(function.rand()==false) tips.setText("                          GAME¡¡OVER £¡");
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
@@ -134,7 +134,7 @@ public class GameFrame{
 		}
 	}
 	public void moveUp() {
-		function.moveUp();
+		if(function.moveUp()==false) return ;
 		if(function.rand()==false) tips.setText("                          GAME¡¡OVER £¡");
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
@@ -146,7 +146,7 @@ public class GameFrame{
 		}
 	}
 	public void moveDown() {
-		function.moveDown();
+		if(function.moveDown()==false) return ;
 		if(function.rand()==false) tips.setText("                          GAME¡¡OVER £¡");
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
