@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Function {
 	static int[][] data=new int[4][4];
+	static long maxScore = 4;
 	public void clear() {    //清除数据，不过不用
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
@@ -22,6 +23,7 @@ public class Function {
 		}
 		int m = (int)(Math.random() * 16);
 		int n = (int)(Math.random() * 16);
+		if(n == m) n=(n==16?n-1:n+1);
 		data[m/4][m%4] = 2;
 		data[n/4][n%4] = 2;
 	}
@@ -41,8 +43,9 @@ public class Function {
 		if(rest.size() == 0 && checkLost() == true) return true;
 		int mm = (int)(Math.random()*rest.size());//随机位置
 		int index = rest.get(mm);
-		int nn = (int)(Math.random() * 8);//随机大小
-		data[index/4][index%4] = (nn==1?4:2);
+		int nn = (int)(Math.random() * 10);//随机大小
+		data[index/4][index%4] = (nn==1?4:2);  //控制4和2的概率
+		maxScore += data[index/4][index%4];
 		if(rest.size()==1 && checkLost()==false) {
 			return false;
 		} 
@@ -94,9 +97,11 @@ public class Function {
 					for(int k = j + 1; k < 3; k++) {
 						data[i][k] = data[i][k+1];
 					}
+					data[i][3] = 0;
 				}
 			}
 		}
+		//debug();
 		return flag;
 	}
 	
@@ -125,9 +130,11 @@ public class Function {
 					for(int k = j-1; k > 0; k--) {
 						data[i][k] = data[i][k - 1];
 					}
+					data[i][0] = 0;
 				}
 			}
 		}
+	//	debug();
 		return flag;
 	}
 	
@@ -151,13 +158,16 @@ public class Function {
 			for(int i = 0; i < 3; i++) {
 				if(data[i][j]!= 0 && data[i][j] == data[i+1][j]){
 					data[i][j] += data[i+1][j];
+					data[i+1][j] = 0;
 					flag = true;
 					for(int k = i+1; k < 3; k++) {
 						data[k][j] = data[k+1][j];
 					}
+					data[3][j] = 0;
 				}
 			}
 		}
+	//	debug();
 		return flag;
 	}
 	
@@ -179,20 +189,31 @@ public class Function {
 		}
 		for(int j = 0; j < 4; j++) {
 			for(int i = 3; i > 0; i--) {
-				if(data[i][j]!= 0 && data[i][j] == data[i-1][j]) {
+				if(data[i][j] != 0 && data[i][j] == data[i-1][j]) {
 					data[i][j] += data[i-1][j];
+					data[i-1][j] = 0;
 					flag = true;
 					for(int k = i-1; k > 0; k--) {
 						data[k][j] = data[k-1][j];
 					}
+					data[0][j] = 0;
 				}
 			}
 		}
+	//	debug();
 		return flag;
 	}
 	
 	/*
 	 * 
 	 */
-	
+	public void debug(){
+		int sum = 0; 
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 4; j++) {
+				sum += data[i][j];
+			}
+		}
+		System.out.println("sum"+sum);
+	}
 }

@@ -17,7 +17,9 @@ import javax.swing.SwingConstants;
 public class GameFrame{
 	private JLabel[][] label = new JLabel[4][4];
 	private Function function = null;
-	
+	private JLabel maxScoreLabel = null;
+	private JTextField maxScoreText = null;
+	private JTextField recentScore = null;
 	private JLabel tips = null;
 	private Font font = new Font("", Font.BOLD,14);			//设置字体类型和大小
 	private Font font2 = new Font("", Font.BOLD,30);
@@ -36,15 +38,23 @@ public class GameFrame{
 		scorePanel.setLayout(null);
 		c.add(scorePanel);
 		
-		JLabel maxScoreLabel = new JLabel("最高分:");//最高分标签
+		maxScoreLabel = new JLabel("最高分:");//最高分标签
 		maxScoreLabel.setBounds(10,5,50,30);
 		scorePanel.add(maxScoreLabel);
 		
-		JTextField maxScoreText = new JTextField("暂不可用");//得分标签
+		maxScoreText = new JTextField("暂不可用");//得分标签
 		maxScoreText.setBounds(60, 5, 150, 30);
 		maxScoreText.setEditable(false);
 		scorePanel.add(maxScoreText);
 		
+		JLabel recentScoreLabel = new JLabel("当前分数:");
+		recentScoreLabel.setBounds(240, 5, 60, 30);
+		scorePanel.add(recentScoreLabel);
+		
+		recentScore = new JTextField();
+		recentScore.setBounds(300, 5, 150, 30);
+		recentScore.setEditable(false);
+		scorePanel.add(recentScore);
 		
 		JPanel mainPanel = new JPanel();//显示方块面板
 		mainPanel.setBounds(0,40,500,500);
@@ -61,7 +71,7 @@ public class GameFrame{
 		}
 		c.add(mainPanel);
 		
-		tips = new JLabel("Tips：使用上、下、左、右键或者W、S、A、D键控制");
+		tips = new JLabel("Tips：使用上、下、左、右键或者W、S、A、D键控制");//提示标签
 		tips.setBounds(20,540,500,20);
 		c.add(tips);
 		
@@ -90,6 +100,7 @@ public class GameFrame{
 					label[i][j].setText("");
 			}
 		}
+		recentScore.setText(String.valueOf(function.maxScore));
 	}
 	
 	public void doKeyPressed(KeyEvent e) {  //判断按键并移动
@@ -106,6 +117,7 @@ public class GameFrame{
 		else if(code == KeyEvent.VK_UP || code == KeyEvent.VK_W) {
 			moveUp();
 		}
+		recentScore.setText(String.valueOf(function.maxScore));
 	}
 	
 	public void moveLeft() {
