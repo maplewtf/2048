@@ -2,6 +2,7 @@ package game2048;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
@@ -64,6 +65,7 @@ public class GameFrame{
 				label[i][j] = new JLabel();
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 				label[i][j].setFont(font2);
+				label[i][j].setOpaque(true);//设置可以修改背景颜色
 				label[i][j].setText("");
 				label[i][j].setBorder(BorderFactory.createMatteBorder(1,1,1,1, Color.black));//设置方块边框颜色
 				mainPanel.add(label[i][j]);
@@ -94,10 +96,12 @@ public class GameFrame{
 		function.initGame();
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
-				if(function.data[i][j] != 0)
+				if(function.data[i][j] != 0){
 					label[i][j].setText(String.valueOf(function.data[i][j]));
+				}
 				else
 					label[i][j].setText("");
+				setColor(i,j,function.data[i][j]);
 			}
 		}
 		recentScore.setText(String.valueOf(function.maxScore));
@@ -125,10 +129,13 @@ public class GameFrame{
 		if(function.rand()==false) tips.setText("                          GAME　OVER ！");
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
-				if(function.data[i][j] != 0)
+				if(function.data[i][j] != 0){
 					label[i][j].setText(String.valueOf(function.data[i][j]));
+					
+				}
 				else
 					label[i][j].setText("");
+				setColor(i,j,function.data[i][j]);
 			}
 		}
 		
@@ -138,10 +145,13 @@ public class GameFrame{
 		if(function.rand()==false) tips.setText("                          GAME　OVER ！");
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
-				if(function.data[i][j] != 0)
+				if(function.data[i][j] != 0){
 					label[i][j].setText(String.valueOf(function.data[i][j]));
+					
+				}
 				else
 					label[i][j].setText("");
+				setColor(i,j,function.data[i][j]);
 			}
 		}
 	}
@@ -150,10 +160,13 @@ public class GameFrame{
 		if(function.rand()==false) tips.setText("                          GAME　OVER ！");
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
-				if(function.data[i][j] != 0)
+				if(function.data[i][j] != 0){
 					label[i][j].setText(String.valueOf(function.data[i][j]));
+					
+				}
 				else
 					label[i][j].setText("");
+				setColor(i,j,function.data[i][j]);
 			}
 		}
 	}
@@ -162,15 +175,76 @@ public class GameFrame{
 		if(function.rand()==false) tips.setText("                          GAME　OVER ！");
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
-				if(function.data[i][j] != 0)
+				if(function.data[i][j] != 0){
 					label[i][j].setText(String.valueOf(function.data[i][j]));
+					
+				}
 				else
 					label[i][j].setText("");
+				setColor(i,j,function.data[i][j]);
 			}
 		}
 	}
 	
+	/*
+	 * 设置颜色
+	 */
+	public void setColor(int i,int j,int shu) {
+		switch(shu) {
+		case 2:
+			label[i][j].setBackground(Color.yellow);
+			break;
+		case 4:
+			label[i][j].setBackground(Color.red);
+			break;
+		case 8:
+			label[i][j].setBackground(Color.pink);
+			break;
+		case 16:
+			label[i][j].setBackground(Color.orange);
+			break;
+		case 32:
+			label[i][j].setBackground(Color.magenta);
+			break;
+		case 64:
+			label[i][j].setBackground(Color.LIGHT_GRAY);
+			break;
+		case 128:
+			label[i][j].setBackground(Color.green);
+			break;
+		case 256:
+			label[i][j].setBackground(Color.gray);
+			break;
+		case 512:
+			label[i][j].setBackground(Color.DARK_GRAY);
+			break;
+		case 1024:
+			label[i][j].setBackground(Color.cyan);
+			break;
+		case 2048:
+			label[i][j].setBackground(Color.blue);
+			break;
+		case 0:
+		case 4096:
+			label[i][j].setBackground(Color.white);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	
 	public static void main(String[] args) {
-		new GameFrame();
+		
+		EventQueue.invokeLater(new Runnable(){
+			public void run(){
+				try{
+					new GameFrame();
+				}
+				catch(Exception e1){
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
 }
