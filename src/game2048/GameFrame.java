@@ -89,6 +89,7 @@ public class GameFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 		        init();
+		        tips.setText("Tips：使用上、下、左、右键或者W、S、A、D键控制");
 			}
 		});
 		tipPanel.add(tips);
