@@ -5,10 +5,13 @@ import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,13 +20,15 @@ import javax.swing.SwingConstants;
 
 public class GameFrame{
 	private JLabel[][] label = new JLabel[4][4];
-	private Function function = null;
+	private Function function = new Function();;
 	private JLabel maxScoreLabel = null;
 	private JTextField maxScoreText = null;
 	private JTextField recentScore = null;
 	private JLabel tips = null;
 	private Font font = new Font("", Font.BOLD,14);			//设置字体类型和大小
 	private Font font2 = new Font("", Font.BOLD,30);
+	
+	JButton resetButton = null;
 	public GameFrame(){
 		
 		JFrame jf = new JFrame();
@@ -73,15 +78,28 @@ public class GameFrame{
 		}
 		c.add(mainPanel);
 		
+		JPanel tipPanel = new JPanel();
+		tipPanel.setBounds(0,540,500,20);
+		tipPanel.setLayout(null);
 		tips = new JLabel("Tips：使用上、下、左、右键或者W、S、A、D键控制");//提示标签
-		tips.setBounds(20,540,500,20);
-		c.add(tips);
+		tips.setBounds(20,0,350,20);
+		resetButton = new JButton("重新开始!");
+		resetButton.setBounds(375,0,100,20);
+		resetButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+		        init();
+			}
+		});
+		tipPanel.add(tips);
+		tipPanel.add(resetButton);
+		c.add(tipPanel);
 		
 		jf.setResizable(false);
 		jf.setVisible(true);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		function = new Function();
+		
 		init();
 		maxScoreText.addKeyListener(new KeyAdapter(){//为最高分标签添加按键监听器
 			public void keyPressed(KeyEvent e){
@@ -105,6 +123,7 @@ public class GameFrame{
 			}
 		}
 		recentScore.setText(String.valueOf(function.maxScore));
+		maxScoreText.grabFocus();//重新获取焦点，要不焦点可能会到按钮那里
 	}
 	
 	public void doKeyPressed(KeyEvent e) {  //判断按键并移动

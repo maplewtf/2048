@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Function {
 	static int[][] data=new int[4][4];
-	static long maxScore = 4;
+	static long maxScore;
 	public void clear() {    //清除数据，不过不用
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
@@ -16,6 +16,7 @@ public class Function {
 	 * 初始化游戏
 	 */
 	public void initGame() {  //初始游戏
+		maxScore = 4;
 		for(int i = 0; i < 4; i++) {
 			for(int j = 0; j < 4; j++) {
 				data[i][j] = 0;
